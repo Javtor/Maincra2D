@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.Graphics;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 import model.Maincra;
@@ -43,6 +46,14 @@ public class Window extends JFrame{
 		render.start();
 	}
 
+	public void render(Graphics g) {
+		try {
+			game.render(g);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void refresh()
 	{

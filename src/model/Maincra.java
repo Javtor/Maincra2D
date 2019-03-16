@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.Graphics;
+import java.io.IOException;
+
 public class Maincra {
 	
 	private static int pixeLSize = 2;
@@ -15,6 +18,12 @@ public class Maincra {
 	
 	private boolean running;
 	public int testNumb;
+	
+	private Level world;
+	
+	private int sX;
+	private int sY;
+	
 	public Maincra() {
 		
 	}
@@ -22,7 +31,8 @@ public class Maincra {
 	public void init()
 	{
 		running = true;
-		testNumb = 0;
+		testNumb = 0;		
+		world = new Level();
 	}
 
 	public boolean isRunning() {
@@ -33,8 +43,13 @@ public class Maincra {
 		this.running = running;
 	}
 
-	public void gameLoop() {
+	public void tick() {
 		testNumb++;
+	}
+
+	public void render(Graphics g) throws IOException {
+		world.render(g);
+		
 	}
 	
 	

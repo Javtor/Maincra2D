@@ -19,16 +19,16 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private Window mainWindow;
 	private Maincra game;
 	public Image screen;
-	
+
 	private Dimension size = new Dimension(Maincra.WIDTH, Maincra.HEIGHT);
 	public Dimension pixel = new Dimension(Maincra.PIXEL_WIDTH, Maincra.PIXEL_HEIGHT);
 
 	public GamePanel(Window mainWindow, Maincra game) {
 		this.mainWindow = mainWindow;
 		this.game = game;
-		
+
 		System.setProperty("java.awt.headless", "false");
-		
+
 		setPreferredSize(size);
 		setFocusable(true);
 		addKeyListener(this);
@@ -45,11 +45,11 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 	public void drawGame() {
 		Graphics g = screen.getGraphics();
-		g.setColor(new Color(255,100,100));
+		g.setColor(new Color(186, 214, 254));
 		g.fillRect(0, 0, screen.getWidth(null), screen.getHeight(null));
-		
+		mainWindow.render(g);
+
 		g = getGraphics();
-		
 		g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 		g.dispose();
 	}
@@ -57,49 +57,49 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
