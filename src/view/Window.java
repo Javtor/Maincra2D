@@ -17,9 +17,11 @@ public class Window extends JFrame{
 		game = new Maincra();
 		gamePanel = new GamePanel(this, game);
 		this.add(gamePanel);
-		pack();
+		
 		setTitle(TITLE);
 		setResizable(false);
+		pack();
+		
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -36,14 +38,15 @@ public class Window extends JFrame{
 		render.setName("Render");		
 		
 		game.init();
-		loop.start();
+		gamePanel.screen = createVolatileImage(gamePanel.pixel.width, gamePanel.pixel.height);
+//		loop.start();
 		render.start();
 	}
 
 
 	public void refresh()
 	{
-		gamePanel.updateUI();
+		gamePanel.drawGame();
 	}
 	
 	public static void main(String[] args) {
