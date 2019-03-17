@@ -29,11 +29,16 @@ public class Window extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
-		startGame();
+		try {
+			startGame();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
-	private void startGame() {		
+	private void startGame() throws IOException {		
 		Thread loop = new Thread(new GameLoop(game));
 		loop.setName("Game loop");
 		
@@ -62,5 +67,17 @@ public class Window extends JFrame{
 	
 	public static void main(String[] args) {
 		new Window();
+	}
+
+
+	public void keyPressed(int key) {
+		game.keyPressed(key);
+		
+	}
+
+
+	public void keyReleased(int key) {
+		game.keyReleased(key);
+		
 	}
 }

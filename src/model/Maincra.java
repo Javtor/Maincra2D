@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class Maincra {
@@ -29,7 +30,7 @@ public class Maincra {
 		
 	}
 	
-	public void init()
+	public void init() throws IOException
 	{
 		running = true;
 		testNumb = 0;		
@@ -57,6 +58,41 @@ public class Maincra {
 	public void render(Graphics g) throws IOException {
 		world.render(g);
 		character.render(g);
+	}
+
+	public void keyPressed(int key) {
+		switch (key) {
+		case KeyEvent.VK_D:
+			character.move(true);
+			break;
+			
+		case KeyEvent.VK_A:
+			character.move(false);
+			break;
+			
+		case KeyEvent.VK_SPACE:
+			character.jump();
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+
+	public void keyReleased(int key) {
+		switch (key) {
+		case KeyEvent.VK_D:
+			character.stop(true);
+			break;
+			
+		case KeyEvent.VK_A:
+			character.stop(false);
+			break;
+
+		default:
+			break;
+		}
 	}
 	
 	

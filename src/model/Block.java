@@ -17,7 +17,7 @@ public abstract class Block extends Sprite {
 	
 	protected int id;
 
-	public Block(int x, int y, String imageUrl, int id) {
+	public Block(int x, int y, String imageUrl, int id) throws IOException {
 		super(x, y, BLOCK_SIZE, BLOCK_SIZE, BASE_URL+imageUrl);
 		// TODO Auto-generated constructor stub
 	}

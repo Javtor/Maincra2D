@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 //		System.setProperty("java.awt.headless", "false");
 		
 //		setDoubleBuffered(true);
+		requestFocus();
 		setPreferredSize(size);
 		setFocusable(true);
 		addKeyListener(this);
@@ -88,15 +89,15 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		mainWindow.keyPressed(key);
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		mainWindow.keyReleased(key);
 	}
 
 	@Override

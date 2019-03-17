@@ -15,16 +15,20 @@ public abstract class Sprite {
 	protected double width;
 	protected double height;
 	protected String imageUrl;
+	protected Image img;
 	
 	public static String BASE_URL =  "res" + File.separator;
 	
-	public Sprite(double x, double y, double width, double height, String imageUrl) {
+	public Sprite(double x, double y, double width, double height, String imageUrl) throws IOException {
 		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.imageUrl = BASE_URL+imageUrl;
+		
+		File file = new File(this.imageUrl);
+		img = ImageIO.read(file);
 	}
 
 	public double getX() {
@@ -59,14 +63,7 @@ public abstract class Sprite {
 		this.height = height;
 	}
 	
-	public Image getImage() throws IOException {
-		File file = new File(imageUrl);
-		BufferedImage img = ImageIO.read(file);
-		return img;
-	}
-	
 	public void render(Graphics g) throws IOException {
-		Image img = getImage();
 		g.drawImage(img, (int)(x-Maincra.sX), (int)(y-Maincra.sY), null);
 	}
 }

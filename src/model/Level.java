@@ -9,12 +9,12 @@ public class Level {
 
 	private Block[][] blocks;
 
-	public Level() {
+	public Level() throws IOException {
 		blocks = new Block[50][50];
 		generateLevel();
 	}
 
-	public void generateLevel() {
+	public void generateLevel() throws IOException {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int y = 0; y < blocks[0].length; y++) {
 				if (x == 0 || y == 0 || x == blocks.length - 1 || y == blocks[0].length - 1) {
@@ -34,7 +34,12 @@ public class Level {
 	public void render(Graphics g) throws IOException {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int y = 0; y < blocks[0].length; y++) {
-				blocks[x][y].render(g);
+				Block b = blocks[x][y];
+				if (b.getX() + b.width >= Maincra.sX && b.getY() + b.height >= Maincra.sY
+						&& b.getX() - b.width <= Maincra.sX + Maincra.WIDTH && b.getY() - b.height <= Maincra.sY + Maincra.HEIGHT ) {
+					b.render(g);
+				}
+
 			}
 		}
 	}
