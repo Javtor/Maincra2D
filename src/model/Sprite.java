@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,12 +16,15 @@ public abstract class Sprite {
 	protected double height;
 	protected String imageUrl;
 	
-	public Sprite(double x, double y, double width, double height) {
+	public static String BASE_URL =  "res" + File.separator;
+	
+	public Sprite(double x, double y, double width, double height, String imageUrl) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.imageUrl = BASE_URL+imageUrl;
 	}
 
 	public double getX() {
@@ -61,4 +65,8 @@ public abstract class Sprite {
 		return img;
 	}
 	
+	public void render(Graphics g) throws IOException {
+		Image img = getImage();
+		g.drawImage(img, (int)(x-Maincra.sX), (int)(y-Maincra.sY), null);
+	}
 }

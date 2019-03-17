@@ -39,4 +39,12 @@ public class Level {
 		}
 	}
 
+	public Block[][] getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(Block[][] blocks) {
+		this.blocks = blocks;
+	}
+
 }

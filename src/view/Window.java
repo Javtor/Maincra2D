@@ -42,7 +42,7 @@ public class Window extends JFrame{
 		
 		game.init();
 		gamePanel.screen = createVolatileImage(gamePanel.pixel.width, gamePanel.pixel.height);
-//		loop.start();
+		loop.start();
 		render.start();
 	}
 

@@ -7,7 +7,7 @@ import model.Block;
 public class Air extends Block{
 
 	public Air(int x, int y) {
-		super(x, y);
+		super(x, y, "", -1);
 		id = -1;
 	}
 

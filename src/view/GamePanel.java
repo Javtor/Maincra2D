@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -27,8 +28,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		this.mainWindow = mainWindow;
 		this.game = game;
 
-		System.setProperty("java.awt.headless", "false");
-
+//		System.setProperty("java.awt.headless", "false");
+		
+//		setDoubleBuffered(true);
 		setPreferredSize(size);
 		setFocusable(true);
 		addKeyListener(this);
@@ -44,12 +46,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	}
 
 	public void drawGame() {
-		Graphics g = screen.getGraphics();
+		Graphics2D g = (Graphics2D)screen.getGraphics();
+		g.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		g.setColor(new Color(186, 214, 254));
 		g.fillRect(0, 0, screen.getWidth(null), screen.getHeight(null));
 		mainWindow.render(g);
 
-		g = getGraphics();
+		g = (Graphics2D)getGraphics();
 		g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 		g.dispose();
 	}

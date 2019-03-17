@@ -13,17 +13,18 @@ public abstract class Block extends Sprite {
 
 	public static int BLOCK_SIZE = 16;
 
-	public static String BASE_URL = "res" + File.separator + "block" + File.separator;
+	public static String BASE_URL =  "block" + File.separator;
+	
+	protected int id;
 
-	public Block(int x, int y) {
-		super(x, y, BLOCK_SIZE, BLOCK_SIZE);
+	public Block(int x, int y, String imageUrl, int id) {
+		super(x, y, BLOCK_SIZE, BLOCK_SIZE, BASE_URL+imageUrl);
 		// TODO Auto-generated constructor stub
 	}
 
-	protected int id;
-
-	public void render(Graphics g) throws IOException {
-		Image img = getImage();
-		g.drawImage(img, (int)x, (int)y, null);
+	public int getId() {
+		return id;
 	}
+
+	
 }

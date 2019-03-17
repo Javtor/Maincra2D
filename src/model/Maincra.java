@@ -13,16 +13,17 @@ public class Maincra {
 	public static final int PIXEL_WIDTH = WIDTH/pixeLSize;
 	public static final int PIXEL_HEIGHT = HEIGHT/pixeLSize;
 	
-	public static final int TICS_PER_SECOND = 20;
-	public static final int FRAMES_PER_SECOND = 60;
+	public static final int TICS_PER_SECOND = 30;
+	public static final int FRAMES_PER_SECOND = 50;
 	
 	private boolean running;
 	public int testNumb;
 	
 	private Level world;
+	private Character character;
 	
-	private int sX;
-	private int sY;
+	public static double sX;
+	public static double sY;
 	
 	public Maincra() {
 		
@@ -33,6 +34,9 @@ public class Maincra {
 		running = true;
 		testNumb = 0;		
 		world = new Level();
+		character = new Character(PIXEL_WIDTH/2 - Character.CHARACTER_WIDTH/2, PIXEL_HEIGHT/2 - Character.CHARACTER_HEIGHT/2, world);
+		sX = 0;
+		sY = 0;
 	}
 
 	public boolean isRunning() {
@@ -43,13 +47,16 @@ public class Maincra {
 		this.running = running;
 	}
 
-	public void tick() {
-		testNumb++;
+	public void tick() {		
+		sX = character.getX() - (PIXEL_WIDTH/2 - Character.CHARACTER_WIDTH/2);
+		double offsetY = PIXEL_HEIGHT/2 - Character.CHARACTER_HEIGHT/2;
+		sY = character.getY() - offsetY;
+		character.tick();
 	}
 
 	public void render(Graphics g) throws IOException {
 		world.render(g);
-		
+		character.render(g);
 	}
 	
 	
