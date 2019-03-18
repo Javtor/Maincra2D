@@ -26,5 +26,10 @@ public abstract class Block extends Sprite {
 		return id;
 	}
 
-	
+	@Override
+	public void render(Graphics g) throws IOException {
+//		g.setColor(Color.black);
+//		g.drawRect((int)(x-Maincra.sX), (int)(y-Maincra.sY), (int)width, (int)height);
+		super.render(g);
+	}
 }
