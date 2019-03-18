@@ -16,7 +16,11 @@ public class Character extends MovingSprite {
 	public static int CHARACTER_HEIGHT = 32;
 	public static double FALLING_SPEED = 5;
 	public static double MOVING_SPEED = 2.5;
+	public static double GRAVITY_TICK = 1;
 	public static double JUMPING_SPEED = -10;
+
+	private boolean movingRight;
+	private boolean movingLeft;
 
 	private double maxRight;
 	private double maxDown;
@@ -38,30 +42,39 @@ public class Character extends MovingSprite {
 		findMaxDown();
 		falling = maxDown != 0;
 		if (falling) {
-			velY += 1;
+			velY += GRAVITY_TICK;
+		}
+
+		if (movingRight) {
+			velX = MOVING_SPEED;
+		} else if (movingLeft) {
+			velX = -MOVING_SPEED;
+		} else {
+			velX = 0;
 		}
 
 		if (velY > 0) {
 			velY = Math.min(velY, maxDown);
 		}
 
-		if(velX > 0) {
+		if (velX > 0) {
 			findMaxRight();
 			velX = Math.min(velX, maxRight);
 		}
-
+		super.tick();
 	}
 
 	private void findMaxDown() {
 		Block[][] blocks = currentLevel.getBlocks();
 		double min = Integer.MAX_VALUE;
-		for (int x = (int) (this.x / Block.BLOCK_SIZE); x <= (int) ((this.x + width) / Block.BLOCK_SIZE); x++) {
+		for (int x = (int) (this.x / Block.BLOCK_SIZE); x <= (int) Math.ceil((this.x + width) / Block.BLOCK_SIZE)
+				- 1; x++) {
 			if (x >= 0 && x < blocks.length) {
 				for (int y = (int) Math.ceil((this.y + height) / Block.BLOCK_SIZE); y <= (int) Math
 						.ceil((this.y + height + velY) / Block.BLOCK_SIZE); y++) {
 					if (y >= 0 && y < blocks[0].length) {
 						Block b = blocks[x][y];
-						if (!(b instanceof Air))
+						if (b.isSolid())
 							min = Math.min(min, b.y - (this.y + height));
 					}
 
@@ -83,11 +96,11 @@ public class Character extends MovingSprite {
 		for (int x = (int) Math.ceil((this.x + width) / Block.BLOCK_SIZE); x <= (int) Math
 				.ceil((this.x + width + velX) / Block.BLOCK_SIZE); x++) {
 			if (x >= 0 && x < blocks.length) {
-				for (int y = (int) (this.y / Block.BLOCK_SIZE); y < (int) ((this.y + height)
-						/ Block.BLOCK_SIZE); y++) {
+				for (int y = (int) (this.y / Block.BLOCK_SIZE); y <= (int) Math
+						.ceil((this.y + height) / Block.BLOCK_SIZE) - 1; y++) {
 					if (y >= 0 && y < blocks[0].length) {
 						Block b = blocks[x][y];
-						if (!(b instanceof Air))
+						if (b.isSolid())
 							min = Math.min(min, b.x - (this.x + width));
 					}
 				}
@@ -117,22 +130,24 @@ public class Character extends MovingSprite {
 //	}
 
 	public void move(boolean right) {
-		velX = MOVING_SPEED;
+		if (right)
+			movingRight = true;
 		if (!right)
-			velX = -velX;
+			movingLeft = true;
 	}
 
 	public void stop(boolean right) {
-		if (right && velX > 0) {
-			velX = 0;
-		} else if (!right && velX < 0) {
-			velX = 0;
+		if (right && movingRight) {
+			movingRight = false;
+		} else if (!right && movingLeft) {
+			movingLeft = false;
 		}
 
 	}
 
 	public void jump() {
-		velY = JUMPING_SPEED;
+		if (!falling)
+			velY = JUMPING_SPEED;
 
 	}
 

@@ -10,6 +10,7 @@ public class Air extends Block{
 	public Air(int x, int y) throws IOException {
 		super(x, y, "dirt.png", -1);
 		id = -1;
+		solid = false;
 	}
 
 	@Override
