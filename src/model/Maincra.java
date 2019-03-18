@@ -48,11 +48,15 @@ public class Maincra {
 		this.running = running;
 	}
 
-	public void tick() {		
-		sX = character.getX() - (PIXEL_WIDTH/2 - Character.CHARACTER_WIDTH/2);
+	public void tick() {	
+		character.tick();
+		
+		double offsetX = PIXEL_WIDTH/2 - Character.CHARACTER_WIDTH/2;
+		sX = character.getX() - offsetX;
+		
 		double offsetY = PIXEL_HEIGHT/2 - Character.CHARACTER_HEIGHT/2;
 		sY = character.getY() - offsetY;
-		character.tick();
+
 	}
 
 	public void render(Graphics g) throws IOException {
