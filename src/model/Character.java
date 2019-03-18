@@ -6,6 +6,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
+import model.blocks.Air;
+
 public class Character extends MovingSprite {
 
 	private boolean front;
@@ -16,6 +18,9 @@ public class Character extends MovingSprite {
 	public static double MOVING_SPEED = 2.5;
 	public static double JUMPING_SPEED = -10;
 
+	private double maxRight;
+	private double maxDown;
+
 	private Level currentLevel;
 
 	private boolean falling;
@@ -25,40 +30,39 @@ public class Character extends MovingSprite {
 		this.front = true;
 		falling = true;
 		this.currentLevel = currentLevel;
-//		velY = 5;
+		velY = 5;
 	}
 
 	@Override
 	public void tick() {
-		super.tick();
-		checkCollision();
+		findMaxDown();
+		falling = maxDown != 0;
 		if (falling) {
 			velY += 1;
+		}
 
-		} else if (velY > 0) {
-			velY = 0;
+		if (velY > 0) {
+			velY = Math.min(velY, maxDown);
+		}
+
+		if(velX > 0) {
+			findMaxRight();
+			velX = Math.min(velX, maxRight);
 		}
 
 	}
 
-	private boolean checkCollision() {
-		falling = true;
+	private void findMaxDown() {
 		Block[][] blocks = currentLevel.getBlocks();
-		for (int i = (int) (x / Block.BLOCK_SIZE) - 2; i < blocks.length && i < (int) (x / Block.BLOCK_SIZE) + 3; i++) {
-			for (int j = (int) (y / Block.BLOCK_SIZE) - 2; j < blocks[0].length
-					&& j < (int) (y / Block.BLOCK_SIZE) + 3; j++) {
-				if (i >= 0 && j >= 0) {
-					Block b = blocks[i][j];
-
-					// Down
-					Point2D p1 = new Point2D.Double(x, y+height);
-					Point2D p2 = new Point2D.Double(x+width, y+height);
-					Rectangle2D blockRect = new Rectangle2D.Double(b.getX(), b.getY(), b.getWidth(), b.getHeight());
-					if (b.getId() != -1 && (blockRect.contains(p1) || blockRect.contains(p2))
-							&& (j == 0 || blocks[i][j - 1].id == -1)) {
-
-						this.y = blockRect.getY() - this.height;
-						falling = false;
+		double min = Integer.MAX_VALUE;
+		for (int x = (int) (this.x / Block.BLOCK_SIZE); x <= (int) ((this.x + width) / Block.BLOCK_SIZE); x++) {
+			if (x >= 0 && x < blocks.length) {
+				for (int y = (int) Math.ceil((this.y + height) / Block.BLOCK_SIZE); y <= (int) Math
+						.ceil((this.y + height + velY) / Block.BLOCK_SIZE); y++) {
+					if (y >= 0 && y < blocks[0].length) {
+						Block b = blocks[x][y];
+						if (!(b instanceof Air))
+							min = Math.min(min, b.y - (this.y + height));
 					}
 
 					// Sides
@@ -70,8 +74,47 @@ public class Character extends MovingSprite {
 				}
 			}
 		}
-		return true;
+		maxDown = min;
 	}
+
+	private void findMaxRight() {
+		Block[][] blocks = currentLevel.getBlocks();
+		double min = Integer.MAX_VALUE;
+		for (int x = (int) Math.ceil((this.x + width) / Block.BLOCK_SIZE); x <= (int) Math
+				.ceil((this.x + width + velX) / Block.BLOCK_SIZE); x++) {
+			if (x >= 0 && x < blocks.length) {
+				for (int y = (int) (this.y / Block.BLOCK_SIZE); y < (int) ((this.y + height)
+						/ Block.BLOCK_SIZE); y++) {
+					if (y >= 0 && y < blocks[0].length) {
+						Block b = blocks[x][y];
+						if (!(b instanceof Air))
+							min = Math.min(min, b.x - (this.x + width));
+					}
+				}
+			}
+		}
+		maxRight = min;
+	}
+
+//	private boolean isFalling() {
+//		Block[][] blocks = currentLevel.getBlocks();
+//		for (int i = (int) (x / Block.BLOCK_SIZE); i < blocks.length && i < (int) (x / Block.BLOCK_SIZE) + 3; i++) {
+//			for (int j = (int) (y / Block.BLOCK_SIZE); j < blocks[0].length
+//					&& j < (int) (y / Block.BLOCK_SIZE) + 3; j++) {
+//				if (i >= 0 && j >= 0) {
+//					Block b = blocks[i][j];
+//					Rectangle2D charRect = new Rectangle2D.Double(x, y + FALLING_SPEED, width, height);
+//					Rectangle2D blockRect = new Rectangle2D.Double(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+//
+//					if (b.getId() != -1 && charRect.getBounds2D().intersects(blockRect.getBounds2D())) {
+//						this.y = blockRect.getY() - this.height;
+//						return false;
+//					}
+//				}
+//			}
+//		}
+//		return true;
+//	}
 
 	public void move(boolean right) {
 		velX = MOVING_SPEED;
