@@ -17,7 +17,7 @@ public class GameLoop implements Runnable {
 	public void run() {
 		while(game.isRunning()) {
 			
-			game.tick();
+//			game.tick();
 			
 			try {
 				Thread.sleep(1000/Maincra.TICS_PER_SECOND);

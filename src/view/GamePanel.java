@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 //		System.setProperty("java.awt.headless", "false");
 		
 //		setDoubleBuffered(true);
+		setFocusable(true);
 		requestFocus();
 		setPreferredSize(size);
 		setFocusable(true);

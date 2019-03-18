@@ -17,7 +17,7 @@ public class Level {
 	public void generateLevel() throws IOException {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int y = 0; y < blocks[0].length; y++) {
-				if (x == 0 || y == 0 || x == blocks.length - 1 || y == blocks[0].length - 1) {
+				if (x == 0 || y == 0 || x == blocks.length - 1 || y == 11) {
 					blocks[x][y] = new Dirt(x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE);
 				} else {
 					blocks[x][y] = new Air(x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE);
@@ -25,6 +25,7 @@ public class Level {
 
 			}
 		}
+		blocks[10][10] = new Dirt(10 * Block.BLOCK_SIZE, 10 * Block.BLOCK_SIZE);
 	}
 
 	public void tick() {

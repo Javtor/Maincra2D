@@ -15,7 +15,7 @@ public class Maincra {
 	public static final int PIXEL_HEIGHT = HEIGHT/pixeLSize;
 	
 	public static final int TICS_PER_SECOND = 30;
-	public static final int FRAMES_PER_SECOND = 50;
+	public static final int FRAMES_PER_SECOND = 60;
 	
 	private boolean running;
 	public int testNumb;
