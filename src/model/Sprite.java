@@ -64,6 +64,6 @@ public abstract class Sprite {
 	}
 	
 	public void render(Graphics g) throws IOException {
-		g.drawImage(img, (int)(x-Maincra.sX), (int)(y-Maincra.sY), null);
+		g.drawImage(img, (int)(x-Game.sX), (int)(y-Game.sY), null);
 	}
 }

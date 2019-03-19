@@ -1,19 +1,19 @@
 package threads;
 
-import model.Maincra;
+import model.Game;
 import view.Window;
 
 public class Render implements Runnable {
 
 	private Window mainWindow;	
-	private Maincra game;
+	private Game game;
 	private long targetTime;
 	
-	public Render(Window mainWindow, Maincra game) {
+	public Render(Window mainWindow, Game game) {
 		super();
 		this.mainWindow = mainWindow;
 		this.game = game;
-		targetTime = 1000000000L/Maincra.FRAMES_PER_SECOND;
+		targetTime = 1000000000L/Game.FRAMES_PER_SECOND;
 	}
 
 

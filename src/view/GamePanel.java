@@ -13,18 +13,18 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import model.Maincra;
+import model.Game;
 
 public class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 	private Window mainWindow;
-	private Maincra game;
+	private Game game;
 	public Image screen;
 
-	private Dimension size = new Dimension(Maincra.WIDTH, Maincra.HEIGHT);
-	public Dimension pixel = new Dimension(Maincra.PIXEL_WIDTH, Maincra.PIXEL_HEIGHT);
+	private Dimension size = new Dimension(Game.WIDTH, Game.HEIGHT);
+	public Dimension pixel = new Dimension(Game.PIXEL_WIDTH, Game.PIXEL_HEIGHT);
 
-	public GamePanel(Window mainWindow, Maincra game) {
+	public GamePanel(Window mainWindow, Game game) {
 		this.mainWindow = mainWindow;
 		this.game = game;
 

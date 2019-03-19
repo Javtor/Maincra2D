@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-public class Maincra {
+public class Game {
 	
 	private static int pixeLSize = 2;
 	
@@ -26,7 +26,7 @@ public class Maincra {
 	public static double sX;
 	public static double sY;
 	
-	public Maincra() {
+	public Game() {
 		
 	}
 	

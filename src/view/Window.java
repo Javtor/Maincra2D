@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import model.Maincra;
+import model.Game;
 import threads.GameLoop;
 import threads.Render;
 
@@ -14,10 +14,10 @@ public class Window extends JFrame{
 	public static final String TITLE = "Maincra 2D";
 	
 	private GamePanel gamePanel;
-	private Maincra game;
+	private Game game;
 
 	public Window() {
-		game = new Maincra();
+		game = new Game();
 		gamePanel = new GamePanel(this, game);
 		this.add(gamePanel);
 		

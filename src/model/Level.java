@@ -42,8 +42,8 @@ public class Level {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int y = 0; y < blocks[0].length; y++) {
 				Block b = blocks[x][y];
-				if (b.getX() + b.width >= Maincra.sX && b.getY() + b.height >= Maincra.sY
-						&& b.getX() - b.width <= Maincra.sX + Maincra.WIDTH && b.getY() - b.height <= Maincra.sY + Maincra.HEIGHT ) {
+				if (b.getX() + b.width >= Game.sX && b.getY() + b.height >= Game.sY
+						&& b.getX() - b.width <= Game.sX + Game.WIDTH && b.getY() - b.height <= Game.sY + Game.HEIGHT ) {
 					b.render(g);
 				}
 
