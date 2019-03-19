@@ -47,8 +47,8 @@ public class Character extends MovingSprite {
 			velX = -MOVING_SPEED;
 		} else {
 			velX = 0;
-		}
-
+		}				
+		
 		if (velY > 0) {
 			velY = Math.min(velY, maxDown);
 		}
@@ -56,6 +56,8 @@ public class Character extends MovingSprite {
 		if (velY < 0) {
 			velY = Math.max(velY, findMaxUp());
 		}
+
+		y += velY;
 
 		if (velX > 0) {
 
@@ -66,8 +68,10 @@ public class Character extends MovingSprite {
 
 			velX = Math.max(velX, findMaxLeft());
 		}
-
-		super.tick();
+		
+		x += velX;
+		
+		
 	}
 
 	private double findMaxDown() {
