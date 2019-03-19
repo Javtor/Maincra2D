@@ -17,7 +17,7 @@ public class Character extends MovingSprite {
 	public static double FALLING_SPEED = 5;
 	public static double MOVING_SPEED = 2.5;
 	public static double GRAVITY_TICK = 1;
-	public static double JUMPING_SPEED = -7;
+	public static double JUMPING_SPEED = -8;
 
 	private boolean movingRight;
 	private boolean movingLeft;
@@ -31,7 +31,6 @@ public class Character extends MovingSprite {
 		this.front = true;
 		falling = true;
 		this.currentLevel = currentLevel;
-		velY = 5;
 	}
 
 	@Override
@@ -53,20 +52,21 @@ public class Character extends MovingSprite {
 		if (velY > 0) {
 			velY = Math.min(velY, maxDown);
 		}
-		
+
 		if (velY < 0) {
-//			velY = Math.max(velY, findMaxUp());
+			velY = Math.max(velY, findMaxUp());
 		}
 
 		if (velX > 0) {
 
 			velX = Math.min(velX, findMaxRight());
 		}
-		
+
 		if (velX < 0) {
+
 			velX = Math.max(velX, findMaxLeft());
 		}
-		
+
 		super.tick();
 	}
 
@@ -83,13 +83,25 @@ public class Character extends MovingSprite {
 						if (b.isSolid())
 							min = Math.min(min, b.y - (this.y + height));
 					}
+				}
+			}
+		}
+		return min;
+	}
 
-					// Sides
-//					charRect.setRect(x + velX, y, width, height);
-//					if (b.getId() != -1 && charRect.getBounds2D().intersects(blockRect.getBounds2D())) {
-//						velX = 0;
-//					}
-
+	private double findMaxUp() {
+		Block[][] blocks = currentLevel.getBlocks();
+		double min = Integer.MIN_VALUE;
+		for (int x = (int) (this.x / Block.BLOCK_SIZE); x <= (int) Math.ceil((this.x + width) / Block.BLOCK_SIZE)
+				- 1; x++) {
+			if (x >= 0 && x < blocks.length) {
+				for (int y = (int) Math.ceil((this.y) / Block.BLOCK_SIZE)
+						- 1; y >= (int) Math.ceil((this.y + velY) / Block.BLOCK_SIZE) - 1; y--) {
+					if (y >= 0 && y < blocks[0].length) {
+						Block b = blocks[x][y];
+						if (b.isSolid())
+							min = Math.max(min, b.y + Block.BLOCK_SIZE - (this.y));
+					}
 				}
 			}
 		}
@@ -114,12 +126,12 @@ public class Character extends MovingSprite {
 		}
 		return min;
 	}
-	
+
 	private double findMaxLeft() {
 		Block[][] blocks = currentLevel.getBlocks();
 		double min = Integer.MIN_VALUE;
-		for (int x = (int) Math.ceil((this.x) / Block.BLOCK_SIZE)-1; x >= (int) Math
-				.ceil((this.x  + velX) / Block.BLOCK_SIZE)-1; x--) {
+		for (int x = (int) Math.ceil((this.x) / Block.BLOCK_SIZE)
+				- 1; x >= (int) Math.ceil((this.x + velX) / Block.BLOCK_SIZE) - 1; x--) {
 			if (x >= 0 && x < blocks.length) {
 				for (int y = (int) (this.y / Block.BLOCK_SIZE); y <= (int) Math
 						.ceil((this.y + height) / Block.BLOCK_SIZE) - 1; y++) {
